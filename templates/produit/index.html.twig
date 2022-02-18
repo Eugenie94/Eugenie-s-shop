@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Liste des produits' }}</h1>
+
+    {% if produits is not empty %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in produits %}
+                <tr>
+                    <td>{{ p.nom }}</td>
+                    <td>{{ p.description }}</td>
+                    <td>{{ p.prix }}</td>
+                    <td>{{ p.stock }}</td>
+                     <td>
+                        {% if p.photo is not null %}
+                            <img src="{{ asset('/uploads/' ~ p.photo ) }}" alt="" style="width:100px">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('produit_show', {'id':p.id}) }}">Afficher</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+        <p>Il n'y a aucun produit</p>
+    {% endif %}
+
+{% endblock %}

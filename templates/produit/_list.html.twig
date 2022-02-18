@@ -1,0 +1,44 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Nom</th>
+			<th>Description</th>
+            <th>Prix</th>
+			<th>Stock</th>
+			<th>Photo</th>
+			{% if is_granted('ROLE_ADMIN') %}
+			<th><a href="{{ path('produit_new') }}" style="margin-right:7px;"><i class="fa-solid fa-plus"></i></a></th>
+			{% endif %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for produit in produits %}
+		<tr>	
+			<td>{{ produit.id }}</td>
+			<td>{{ produit.nom }}</td>
+			<td>{{ produit.description }}</td>
+            <td>{{ produit.prix }}</td>
+			<td>{{ produit.stock }}</td>
+			<td>
+                {% if produit.photo is not null %}
+                    <img src="{{ asset('/uploads/' ~ produit.photo ) }}" alt="" style="width:100px">
+                {% endif %}
+            </td>
+			<td>
+				<a href="{{ path('produit_show', {'id': produit.id}) }}" style="margin-right:7px;"><i class="fa-solid fa-eye"></i></a>
+				{% if is_granted('ROLE_ADMIN') %}
+				<a href="{{ path('produit_edit', {'id': produit.id}) }}" style="margin-right:7px;"><i class="fa-solid fa-pen-to-square"></i></a>
+				{% endif %}
+				{% if is_granted('ROLE_USER') %}
+				<a style="margin-left:10px;" href="{{ path('panier_new') }}"><i class="fa-solid fa-cart-arrow-down" style="margin-left:5px;color:green;"></i></a>
+				{% endif %}
+			</td>
+		</tr>
+		{% else %}
+		<tr>
+			<td colspan="3">Pas de produit trouvé</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

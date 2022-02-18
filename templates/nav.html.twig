@@ -1,0 +1,53 @@
+<!-- FIN HEADER -->
+<header>
+
+    <!-- Image fond Hotel qui prend tout LE HEADER -->
+    <div class="image-index">
+
+        <!-- DEBUT NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="navbar-nav ms-auto">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                    <a class="nav-link bonjour" href="#">
+                        Bonjour {{ app.user.nom }} {{ app.user.prenom }}
+                    </a>
+
+                    <a class="nav-link profil" href="{{ path('user_profil') }}">
+                        <i class="fas fa-user"></i>
+                    </a>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="nav-link button ajouter lien-responsive" href="{{ path('') }}">Gestion</a>
+                    {% endif %}
+
+                    <a class="nav-link button deconnexion lien-responsive" href="{{ path('app_logout') }}">Déconnexion</a>
+                    {% else %}
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-3 lien-responsive">
+                            <a class="nav-link button register" href="{{ path('app_register') }}">Inscription</a>
+                        </div>
+                        <div class="col-md-3 lien-responsive">
+                            <a class="nav-link button login" href="{{ path('app_login') }}">Connexion</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- FIN NAVBAR -->
+
+        
+
+</header>
+
+
+<!-- FIN HEADER -->

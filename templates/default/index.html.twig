@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur la liste de nos produits{% endblock %}
+
+{% block body %}
+    <h1>Produits</h1>
+
+    {{ include('produit/_list.html.twig', {'produits':produits}) }}
+
+{% endblock %}
