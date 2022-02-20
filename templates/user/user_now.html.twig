@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des paniers non achetés{% endblock %}
+
+
+{% block body %}
+
+    <h1 style="padding-bottom:30px;padding-top:50px;">Utilisateur(s) inscrit(s) aujourd'hui de plus récent au plus ancien</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Mot de passe</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for u in user %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.nom }}</td>
+                <td>{{ u.prenom }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.password }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -36,13 +36,13 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/produit/new, roles: ROLE_USER }
-        - { path: ^/produit/edit, roles: ROLE_ADMIN }
-        - { path: ^/produit/delete, roles: ROLE_ADMIN }
-        - { path: ^/categorie/edit, roles: ROLE_ADMIN }
-        - { path: ^/categorie/delete, roles: ROLE_ADMIN }
+        - { path: ^/produit/edit, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+        - { path: ^/produit/delete, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+        - { path: ^/categorie/edit, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN]  }
+        - { path: ^/categorie/delete, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN]  }
         - { path: ^/commentaire/new, roles: ROLE_USER }
-        - { path: ^/commentaire/edit, roles: ROLE_ADMIN }
-        - { path: ^/commentaire/delete, roles: ROLE_ADMIN }
+        - { path: ^/commentaire/edit, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN]  }
+        - { path: ^/commentaire/delete, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN]  }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

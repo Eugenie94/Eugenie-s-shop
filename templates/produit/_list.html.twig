@@ -7,7 +7,7 @@
             <th>Prix</th>
 			<th>Stock</th>
 			<th>Photo</th>
-			{% if is_granted('ROLE_ADMIN') %}
+			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
 			<th><a href="{{ path('produit_new') }}" style="margin-right:7px;"><i class="fa-solid fa-plus"></i></a></th>
 			{% endif %}
 		</tr>
@@ -27,7 +27,7 @@
             </td>
 			<td>
 				<a href="{{ path('produit_show', {'id': produit.id}) }}" style="margin-right:7px;"><i class="fa-solid fa-eye"></i></a>
-				{% if is_granted('ROLE_ADMIN') %}
+				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
 				<a href="{{ path('produit_edit', {'id': produit.id}) }}" style="margin-right:7px;"><i class="fa-solid fa-pen-to-square"></i></a>
 				{% endif %}
 			</td>

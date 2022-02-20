@@ -40,9 +40,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\Column(type: 'datetime',  nullable: true)]
+    private $dateCreation;
+
     public function __construct()
     {
         $this->paniers = new ArrayCollection();
+        $this->dateCreation = new \DateTime();
     }
 
     public function getId(): ?int
@@ -185,5 +189,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
     }
 }

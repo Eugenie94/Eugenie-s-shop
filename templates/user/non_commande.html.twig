@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des paniers non achetés{% endblock %}
+
+
+{% block body %} 
+
+
+<h1 style="padding-bottom:30px;padding-top:30px;">Commande(s) non validée(s)</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:33%;">Utilisateur</th>
+                <th style="width:33%;">Numéro de panier</th>
+                <th style="width:33%;">Contenu du panier</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for p in panier %}
+            <tr>
+                <td>{{ p.utilisateur }}</td>
+                <td>{{ p.id }}</td>
+
+                {# {% for c in contenuPaniers %}
+                    <td>{{ c.id.produit }}</td>
+                {% endfor %} #}
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %} 

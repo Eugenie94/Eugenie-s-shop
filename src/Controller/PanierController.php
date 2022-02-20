@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Panier;
+use App\Entity\ContenuPanier;
 use App\Form\PanierType;
 use App\Repository\ContenuPanierRepository;
 use App\Repository\PanierRepository;
