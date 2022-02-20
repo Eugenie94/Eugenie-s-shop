@@ -4,7 +4,13 @@ namespace App\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Produit;
+use App\Entity\ContenuPanier;
+use App\Entity\Panier;
 use App\Form\ProduitType;
+use App\Form\ContenuPanierType;
+use App\Repository\ContenuPanierRepository;
+use App\Repository\PanierRepository;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -15,94 +21,111 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProduitController extends AbstractController
 {
-    // #[Route('/produit', name: 'produit')]
-    // public function index(ManagerRegistry $doctrine, Request $request, TranslatorInterface $translator): Response
-    // {
-    //     $entityManager = $doctrine->getManager();
+    #[Route('/', name: 'produit_index')]
+    public function index(ManagerRegistry $doctrine, Request $request, TranslatorInterface $translator): Response
+    {
+        $entityManager = $doctrine->getManager();
 
-    //     $produit = new Produit();
+        $produit = new Produit();
 
-    //     // Objet vide pour le formulaire
-    //     $form = $this->createForm(ProduitType::class, $produit);
+        // Objet vide pour le formulaire
+        $form = $this->createForm(ProduitType::class, $produit);
 
-    //     // Détecte la requete HTTP
-    //     $form->handleRequest($request);
+        // Détecte la requete HTTP
+        $form->handleRequest($request);
 
-    //         // Si le formulaire a été soumis et qu'il est valide
-    //         if ($form->isSubmitted() && $form->isValid()){
+            // Si le formulaire a été soumis et qu'il est valide
+            if ($form->isSubmitted() && $form->isValid()){
 
-    //             $photo = $form->get('photo')->getData();
+                $photo = $form->get('photo')->getData();
 
-    //             if ($photo) {
-    //                 $newFilename = uniqid().'.'.$photo->guessExtension();
+                if ($photo) {
+                    $newFilename = uniqid().'.'.$photo->guessExtension();
 
-    //                 try {
-    //                     $photo->move(
-    //                         $this->getParameter('upload_directory'),
-    //                         $newFilename
-    //                     );
-    //                 } catch (FileException $e) {
-    //                     $this->addFlash('danger', "Impossible d'uploader l'image");
-    //                     return $this->redirectToRoute('produit');
-    //                 }
+                    try {
+                        $photo->move(
+                            $this->getParameter('upload_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        $this->addFlash('danger', "Impossible d'uploader l'image");
+                        return $this->redirectToRoute('produit');
+                    }
 
-    //                 $produit->setPhoto($newFilename);
-    //             }
+                    $produit->setPhoto($newFilename);
+                }
 
-    //             // Equivalent prepare PDO
-    //             $entityManager->persist($produit);
+                // Equivalent prepare PDO
+                $entityManager->persist($produit);
 
-    //             // Equivalent execute PDO
-    //             $entityManager->flush();
+                // Equivalent execute PDO
+                $entityManager->flush();
 
-    //             $this->addFlash('success', $translator->trans('produit.added'));
-    //         }
+                $this->addFlash('success', $translator->trans('produit.added'));
+            }
 
-    //         $produits = $entityManager->getRepository(Produit::class)->findAll();
-
-
-    //     return $this->render('produit/index.html.twig', [
-    //         'produits' => $produits,
-    //         'ajout' => $form->createView()
-    //     ]);
-    // }
-
-    // #[Route('/', name: 'produit_index', methods: ['GET'])]
-    // public function index(ProduitRepository $produitRepository): Response
-    // {
-
-    //     $produits = $produitRepository->findAllByEtat(true);
+            $produits = $entityManager->getRepository(Produit::class)->findAll();
 
 
-    //     return $this->render('produit/index.html.twig', [
-    //         'produits' => $produitRepository->findAll(),
-    //     ]);
-    // }
-
+        return $this->render('produit/index.html.twig', [
+            'produits' => $produits,
+            'form' => $form->createView()
+        ]);
+    }
 
     #[Route('/produit/{id}', name:'produit_show')]
-    public function show(Produit $produit = null, ManagerRegistry $doctrine, Request $request){
+    public function show(Produit $produit = null, EntityManagerInterface $entityManager, Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository){
 
         if($produit == null){
             $this->addFlash('danger', 'Produit introuvable');
             return $this->redirectToRoute('produit');
         }
 
-        // Création du formulaire d'édition avec un objet qui contient des données
-        $form = $this->createForm(ProduitType::class, $produit);
+        // Récupération du contenu du panier
+        $contenuPanier = new ContenuPanier();
+
+        // Création du formulaire d'ajout du produit dans le panier
+        $form = $this->createForm(ContenuPanierType::class, $contenuPanier);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($produit);
-            $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->addFlash('success', 'Produit mis à jour');
+            // Récupération du panier non commandé de l'utilisateur
+            $user = $this->getUser();
+            $userPanier = $panierRepository->findOneBy(['utilisateur' => $user, 'etat' => false]);
+
+            // Si l'utilisateur n'a pas de panier non commandé alors j'effectue la création de son panier
+            if ($userPanier === null) {
+                $userPanier = new Panier();
+                $userPanier->setUtilisateur($user);
+                $userPanier->setEtat(false);
+                $entityManager->persist($userPanier);
+                $entityManager->flush();
+            }
+
+            // Récupération du produit si il est déjà dans le panier utilisateur
+            $produitContenuPanier = $contenuPanierRepository->findOneBy(['panier' => $userPanier, 'produit' => $produit]);
+
+            // Si le produit n'est pas dans ce panier alors on l'ajoute sinon on met à jour sa quantité
+            if ($produitContenuPanier === null) {
+                $contenuPanier->setDate(new \DateTime());
+                $contenuPanier->setProduit($produit);
+                $contenuPanier->setPanier($userPanier);
+                $entityManager->persist($contenuPanier);
+                $entityManager->flush();
+            } else {
+                $produitContenuPanier->setQuantite($produitContenuPanier->getQuantite() + $contenuPanier->getQuantite());
+                $entityManager->persist($produitContenuPanier);
+                $entityManager->flush();
+            }
+
+            $this->addFlash('success', 'Votre produit a été ajouté au panier !');
+
         }
 
         return $this->render('produit/show.html.twig', [
             'produit' => $produit,
-            'edit' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 
@@ -159,10 +182,6 @@ class ProduitController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // if($produit->getEtat() == true){
-            //     $produit->setParution(new \DateTime());
-            // }
-
             $entityManager->persist($produit);
 
             $entityManager->flush();
@@ -173,17 +192,19 @@ class ProduitController extends AbstractController
 
         }
 
-        return $this->renderForm('produit/edit.html.twig', [
+        return $this->render('produit/edit.html.twig', [
             'produit' => $produit,
-            'form' => $form,
+            'form' => $form->createView()
         ]);
     }
 
     #[Route('/produit/delete/{id}', name:'produit_delete')]
     public function delete(Produit $p = null, ManagerRegistry $doctrine){
+        
         if($p == null){
             $this->addFlash('danger', 'Produit introuvable');
         }
+        #TODO if produit in panier before delete
         else{
             $em = $doctrine->getManager();
             $em->remove($p);

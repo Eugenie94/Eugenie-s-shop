@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre espace personnel{% endblock %}
+
+
+{% block body %}
+    <h1 style="padding-bottom:30px;">Mon compte</h1>
+
+    <div style="font-size:20px;font-weight:bold;padding-bottom:20px;color:blue;">Bonjour M. {{ app.user.nom }} {{ app.user.prenom }} et bienvenue sur votre espace personnel </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Roles</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if app.user %}
+            <tr>
+                <td>{{ app.user.id }}</td>
+                <td>{{ app.user.nom }}</td>
+                <td>{{ app.user.prenom }}</td>
+                <td>{{ app.user.email }}</td>
+                <td>{{ app.user.password }}</td>
+                <td>{{ app.user.roles ? app.user.roles|json_encode : '' }}</td>
+                <td>
+                    <a href="{{ path('user_edit', {'id': app.user.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+
+
+
+
+    <h1 style="padding-bottom:30px;padding-top:30px;">Historique de commandes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Montant</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in commandes %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td>montant a faire</td>
+                <td>{{ c.dateAchat|date('d/m/Y h:i:s') }}</td>
+                <td>
+                    <a href="{{ path('user_commande', {'id': c.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

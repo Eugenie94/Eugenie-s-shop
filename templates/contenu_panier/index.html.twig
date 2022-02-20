@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block body %}
+    <h1>Mon panier</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Quantite</th>
+                <th>Prix</th>
+                <th>Montant</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contenu_panier in contenu_paniers %}
+            <tr>
+                <td>{{ contenu_panier.id }}</td>
+                <td>{{ contenu_panier.produit.nom }}</td>
+                <td>{{ contenu_panier.quantite }}</td>
+                <td>{{ contenu_panier.produit.prix }} €</td>
+                <td>{{ contenu_panier.getMontant}} €</td>
+                <td>
+                    <a href="{{ path('contenu_panier_show', {'id': contenu_panier.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{{ path('contenu_panier_edit', {'id': contenu_panier.id}) }}"><i class="fa-solid fa-trash" style="color:red;margin-left:6px;"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Votre panier est vide</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        {% if contenu_paniers != null %}
+        Sous-total : <b>{{ contenu_paniers.panier.getTotal() }} €</b>
+        <a href="{{ path('panier_achat') }}" class="btn btn-warning my-2 my-sm-0" style="margin-left:20px;";>Passer la commande</a>
+        {% endif %}
+    </div>
+{% endblock %}

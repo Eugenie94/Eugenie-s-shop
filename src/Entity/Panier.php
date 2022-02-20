@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\ContenuPanier;
 use App\Repository\PanierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,7 +20,7 @@ class Panier
     #[ORM\JoinColumn(nullable: false)]
     private $utilisateur;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime',  nullable: true)]
     private $date_achat;
 
     #[ORM\Column(type: 'boolean')]
@@ -102,5 +103,19 @@ class Panier
         }
 
         return $this;
+    }
+
+    public function getTotal(){
+
+        $contenuPaniers = $this->contenuPaniers;
+        $total = 0;
+
+        foreach($contenuPaniers as $contenuPanier){
+
+            $total += $contenuPanier->getMontant();
+
+        }
+      
+        return $total;
     }
 }

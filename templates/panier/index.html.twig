@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panier{% endblock %}
+{% block title %}Liste Panier{% endblock %}
 
 {% block body %}
-    <h1>Panier</h1>
+    <h1>Liste Panier</h1>
 
     <table class="table">
         <thead>
@@ -11,18 +11,18 @@
                 <th>Id</th>
                 <th>Utilisateur</th>
                 <th>Date d'achat</th>
-                <th>State</th>
+                <th>Etat</th>
             </tr>
         </thead>
         <tbody>
         {% for panier in paniers %}
             <tr>
                 <td>{{ panier.id }}</td>
-                <td>{{ panier.buyAt ? panier.buyAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ panier.state ? 'Yes' : 'No' }}</td>
+                <td>{{ panier.utilisateur ? panier.dateAchat|date('Y-m-d H:i:s') : ''}}</td>
+                <td>{{ panier.etat ? '<i class="fa-solid fa-check" style="color:green;"></i>' : '<i class="fa-solid fa-xmark" style="color:red;"></i>' }}</td>
                 <td>
-                    <a href="{{ path('panier_show', {'id': panier.id}) }}">show</a>
-                    <a href="{{ path('panier_edit', {'id': panier.id}) }}">edit</a>
+                    <a href="{{ path('contenu_panier_index', {'id': panier.contenuPanier.id}) }}">show</a>
+                    <a href="{{ path('home', {'id': panier.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Form\PanierType;
-use App\Repository\PanierContentRepository;
+use App\Repository\ContenuPanierRepository;
 use App\Repository\PanierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,33 +43,33 @@ class PanierController extends AbstractController
         ]);
     }
 
-    #[Route('/checkout', name: 'panier_checkout', methods: ['GET', 'POST'])]
-    public function show(Request $request, PanierRepository $panierRepository, PanierContentRepository $panierContentRepository, EntityManagerInterface $entityManager): Response
+    #[Route('/achat', name: 'panier_achat', methods: ['GET', 'POST'])]
+    public function show(Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository, EntityManagerInterface $entityManager): Response
     {
         // Récupération du panier en fonction de l'utilisateur
         $user = $this->getUser();
-        $panier = $panierRepository->findOneBy(['user' => $user, 'state' => false]);
+        $panier = $panierRepository->findOneBy(['utilisateur' => $user, 'etat' => false]);
 
         // Récupération des produits dans le panier
-        $panierContent = $panierContentRepository->findBy(['panier' => $panier]);
+        $contenuPanier = $contenuPanierRepository->findBy(['panier' => $panier]);
 
-        // Paramètre buy défini sur false par défaut pour afficher le panier dans la vie
-        $buy = false;
+        // False par defaut pour afficher le panier
+        $achat = false;
 
         if ($request->isMethod('POST')) {
-            $panier->setState(true);
-            $panier->setBuyAt(new \DateTime());
+            $panier->setDateAchat(new \DateTime());
+            $panier->setEtat(true);
             $entityManager->persist($panier);
             $entityManager->flush();
-            $this->addFlash('success', 'Order confirmed! Thank you for buying our amazing products.');
+            $this->addFlash('success', 'Félicitations, votre commande est confirmée !');
 
-            // On passe le paramètre à true pour ne pas afficher le panier uniquement le btn de retour au catalogue et le message de remerciement
-            $buy = true;
+            // On repasse le parametre a true pour ne pas afficher que le panier
+            $achat = true;
         }
 
         return $this->render('panier/show.html.twig', [
-            'panier_content' => $panierContent,
-            'buy' => $buy,
+            'contenu_panier' => $contenuPanier,
+            'achat' => $achat,
         ]);
     }
 
@@ -98,6 +98,8 @@ class PanierController extends AbstractController
             $entityManager->remove($panier);
             $entityManager->flush();
         }
+
+        $this->addFlash('success', 'Votre produit a bien été retiré de votre panier !');
 
         return $this->redirectToRoute('panier_index', [], Response::HTTP_SEE_OTHER);
     }

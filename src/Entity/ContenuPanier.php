@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Produit;
 use App\Repository\ContenuPanierRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -78,5 +79,15 @@ class ContenuPanier
         $this->date = $date;
 
         return $this;
+    }
+
+    public function getMontant(){
+
+        $produit = $this->produit;
+        $quantite = $this->quantite;
+        $prix = $produit->getPrix();
+        $montant = $quantite * $prix;
+      
+        return $montant;
     }
 }

@@ -30,7 +30,7 @@ class Produit
     #[ORM\Column(type: 'string', length: 255)]
     private $photo;
 
-    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: ContenuPanier::class)]
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: ContenuPanier::class, orphanRemoval: true)]
     private $contenuPaniers;
 
     public function __construct()

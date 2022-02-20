@@ -30,9 +30,6 @@
 				{% if is_granted('ROLE_ADMIN') %}
 				<a href="{{ path('produit_edit', {'id': produit.id}) }}" style="margin-right:7px;"><i class="fa-solid fa-pen-to-square"></i></a>
 				{% endif %}
-				{% if is_granted('ROLE_USER') %}
-				<a style="margin-left:10px;" href="{{ path('panier_new') }}"><i class="fa-solid fa-cart-arrow-down" style="margin-left:5px;color:green;"></i></a>
-				{% endif %}
 			</td>
 		</tr>
 		{% else %}

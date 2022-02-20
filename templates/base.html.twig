@@ -33,15 +33,11 @@
                     Bonjour {{ app.user.nom }} {{ app.user.prenom}}
                 </a>
                 <a class="btn btn-outlined-danger my-2 my-sm-0" href="{{ path('home') }}">Nos produits</a>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a class="btn btn-outlined-danger my-2 my-sm-0" href="{{ path('home') }}">Gestion</a>
-                {% endif %}
-
+                <a class="btn btn-outlined-danger my-2 my-sm-0" href="{{ path('user_index') }}"><i class="fa-solid fa-user"></i></a>
+                <a class="btn btn-outlined-danger my-2 my-sm-0" href="{{ path('panier_achat') }}"><i class="fa-solid fa-cart-arrow-down"></i></a>
                 <a class="btn btn-outline-danger my-2 my-sm-0" style="margin-left:10px;" href="{{ path('app_logout') }}">Déconnexion</a>
             
                 {% else %}
-                
-
             <a class="btn btn-outlined-danger my-2 my-sm-0" href="{{ path('home') }}">Nos produits</a>
                 {# {% if app.user %} #}
                     <a href="{{ path('app_register') }}" class="btn btn-outline-danger my-2 my-sm-0" style="margin-left:10px;">
