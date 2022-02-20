@@ -48,7 +48,7 @@ class ProduitController extends AbstractController
                             $newFilename
                         );
                     } catch (FileException $e) {
-                        $this->addFlash('danger', "Impossible d'uploader l'image");
+                        $this->addFlash('danger', $t->trans("ProduitController.noUploadImage"));
                         return $this->redirectToRoute('produit');
                     }
 
@@ -61,7 +61,7 @@ class ProduitController extends AbstractController
                 // Equivalent execute PDO
                 $entityManager->flush();
 
-                $this->addFlash('success', $translator->trans('produit.added'));
+                $this->addFlash('success', $translator->trans('ProduitController.prod.added'));
             }
 
             $produits = $entityManager->getRepository(Produit::class)->findAll();
@@ -74,10 +74,10 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/produit/{id}', name:'produit_show')]
-    public function show(Produit $produit = null, EntityManagerInterface $entityManager, Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository){
+    public function show(Produit $produit = null, EntityManagerInterface $entityManager, Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository, TranslatorInterface $t){
 
         if($produit == null){
-            $this->addFlash('danger', 'Produit introuvable');
+            $this->addFlash('danger', $translator->trans('ProduitController.prodNoFound'));
             return $this->redirectToRoute('produit');
         }
 
@@ -119,7 +119,7 @@ class ProduitController extends AbstractController
                 $entityManager->flush();
             }
 
-            $this->addFlash('success', 'Votre produit a été ajouté au panier !');
+            $this->addFlash('success', $t->trans('ProduitController.prodAddedPanier'));
 
         }
 
@@ -152,7 +152,7 @@ class ProduitController extends AbstractController
                             $newFilename
                         );
                     } catch (FileException $e) {
-                        $this->addFlash('danger', "Impossible d'uploader l'image");
+                        $this->addFlash('danger', $translator->trans("ProduitController.noUploadImage"));
                         return $this->redirectToRoute('produit');
                     }
 
@@ -162,7 +162,7 @@ class ProduitController extends AbstractController
                 $entityManager->persist($produit);
                 $entityManager->flush();
     
-                $this->addFlash('success', $translator->trans('Produit ajouté'));
+                $this->addFlash('success', $translator->trans('ProduitController.prod.added'));
             }
             
             $produits = $entityManager->getRepository(Produit::class)->findAll();
@@ -175,7 +175,7 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'produit_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
@@ -186,7 +186,7 @@ class ProduitController extends AbstractController
 
             $entityManager->flush();
 
-            $this->addFlash('success', 'Produit modifié');
+            $this->addFlash('success', $translator->trans('ProduitController.prodUpdate'));
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
 
@@ -199,17 +199,17 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/produit/delete/{id}', name:'produit_delete')]
-    public function delete(Produit $p = null, ManagerRegistry $doctrine){
+    public function delete(Produit $p = null, ManagerRegistry $doctrine, TranslatorInterface $t){
         
         if($p == null){
-            $this->addFlash('danger', 'Produit introuvable');
+            $this->addFlash('danger', $translator->trans('ProduitController.prodNoFound'));
         }
         #TODO if produit in panier before delete
         else{
             $em = $doctrine->getManager();
             $em->remove($p);
             $em->flush();
-            $this->addFlash('danger', 'Produit supprimé');
+            $this->addFlash('danger', $translator->trans('ProduitController.prodDelete'));
         }
 
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);

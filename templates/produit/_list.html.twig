@@ -1,12 +1,12 @@
 <table class="table">
 	<thead>
 		<tr>
-			<th>Id</th>
-			<th>Nom</th>
-			<th>Description</th>
-            <th>Prix</th>
-			<th>Stock</th>
-			<th>Photo</th>
+			<th>{{ 'produit.listId'|trans }}</th>
+			<th>{{ 'produit.listNom'|trans }}</th>
+			<th>{{ 'produit.listDescription'|trans }}</th>
+			<th>{{ 'produit.listPrix'|trans }}</th>
+			<th>{{ 'produit.listStock'|trans }}</th>
+			<th>{{ 'produit.listPhoto'|trans }}</th>
 			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
 			<th><a href="{{ path('produit_new') }}" style="margin-right:7px;"><i class="fa-solid fa-plus"></i></a></th>
 			{% endif %}
@@ -34,7 +34,7 @@
 		</tr>
 		{% else %}
 		<tr>
-			<td colspan="3">Pas de produit trouvé</td>
+			<td colspan="3">{{ 'produit.listNoFoundProd'|trans }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>

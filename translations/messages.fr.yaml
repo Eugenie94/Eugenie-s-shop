@@ -1,0 +1,330 @@
+# Controller's translations
+
+ProduitController:
+  commandeOk: Félicitations, votre commande est confirmée !
+  prodAdded: Votre produit a bien été ajouté !
+  prodUpdate: Votre produit a bien été modifié !
+  prodDelete: Votre produit a bien été supprimé !
+  prodAddedPanier: Votre produit a été ajouté au panier !
+  prodDeletePanier: Votre produit a bien été retiré de votre panier !
+  noUploadImage: Impossible d'uploader l'image !
+  prodNoFound : Produit introuvable.
+
+
+PanierController:
+  commandeOk: Félicitations, votre commande est confirmée !
+  prodDeletePanier: Votre produit a bien été retiré de votre panier !
+
+
+##############################################################
+
+# Twig's translations
+
+
+# Error Twig's translations
+
+error:
+  errorTitle: Erreur
+  errorContent: La page demandée n’a pas pu être localisée. Regarder n’importe quelle URL ou retour à la page d’accueil
+
+  noFoundTitle: Page non trouvée
+  noFoundContent: La page demandée n’a pas pu être localisée. Regarder n’importe quelle URL ou retour à la page d’accueil
+
+  errorServerTitle: Erreur Serveur
+  errorServerContent: The requested page couldn't be located. Checkout for any URL misspelling or return to the homepage
+
+
+###############################
+ 
+
+# contenuPanier Twig's translations
+contenuPanier:
+
+  # _delete_form.html.twig
+  alertDeleteProdPanier: Etes vous sûrs de vouloir supprimer cet article de votre panier ?
+  deleteProdPanier: Delete
+
+  # _form.html.twig
+  addProdPanier: Ajouter au panier
+
+  # edit.html.twig
+  editTitle: Modifications du panier
+  editH1: Modifications du panier
+  editReturnList: Retour à la liste
+
+  # index.html.twig
+  indextitle: Mon panier
+  indexH1: Mon panier
+  indexId: Id
+  indexNom: Nom
+  indexQuantite: Quantite
+  indexPrix: Prix
+  indexMontant: Montant
+  indexActions: Actions
+  indexVoidPanier: Votre panier est vide
+  indexSousTotal: Sous-total
+  indexEuro: €
+  indexGoCommande: Passer la commande
+
+  # new.html.twig
+  newTitle: Nouveau contenu panier
+  newH1: Creer ton nouveau panier
+  newReturnList: Retour à la liste
+  
+  # show.html.twig
+  showTitle: Contenu du Panier
+  showH1: Contenu du Panier
+  showId: Id
+  showNom: Nom
+  showQuantite: Quantite
+  showPrix: Prix
+  showMontant: Montant
+  showDate: Date
+  showReturnList: Retour à la liste
+  showEdit: Modifier
+  showEuro: €
+
+
+###############################
+
+
+# default Twig's translations
+default:
+
+  # index.html.twig
+  indextitle: Bienvenue sur la liste de nos produits
+  indexH1: Produits
+
+
+###############################
+
+
+# panier Twig's translations
+panier:
+
+  # _delete_form.html.twig
+  alertDeleteProdPanier: Etes vous sûrs de vouloir supprimer cet article de votre panier ?
+  deleteProdPanier: Delete
+
+  # _form.html.twig
+  formEnregistrer: Enregistrer
+
+  # edit.html.twig
+  editTitle: Modifications du panier
+  editH1: Modifications du panier
+  editReturnList: Retour à la liste
+
+  # index.html.twig
+  indextitle: Mon panier
+  indexH1: Liste panier
+  indexId: Id
+  indexUtilisateur: Utilisateur
+  indexDate: Date
+  indexEtat: Etat
+  indexVoir: Voir
+  indexModifier: Modifier
+  indexNoFoundProd: Pas d'article trouvé
+  indexCreateNewPanier: Créer un nouveau panier
+
+
+  # new.html.twig
+  newTitle: Nouveau contenu panier
+  newH1: Creer ton nouveau panier
+  newReturnList: Retour à la liste
+  
+  # show.html.twig
+  showTitle: Panier
+  showH1: Panier
+  showSousTitle: Votre panier
+  showNbTotalProd: Nombre total de produits
+  showMontantTotal: Montant Total
+  showEuro: €
+  showPayez: Payez
+  showVoidPanier: Votre panier est vide
+  showContinueAchat: Continuez vos achats
+
+###############################
+
+
+# produit Twig's translations
+produit:
+
+  # _delete_form.html.twig
+  alertDeleteProdPanier: Etes vous sûrs de vouloir supprimer cet article de votre panier ?
+  deleteProdPanier: Delete
+
+  # _form.html.twig
+  formEnregistrer: Enregistrer
+
+ # _list.html.twig
+  listId: Id
+  listNom: Nom
+  listDescription: Description
+  listPrix: Prix
+  listStock: Stock
+  listPhoto: Photo
+  listNoFoundProd: Pas de produit trouvé
+
+  # edit.html.twig
+  editTitle: Modifications du produit
+  editH1: Modifications du produit
+  editReturnList: Retour à la liste
+
+  # index.html.twig
+  indextitle: Liste des produits
+  indexH1: Liste des produits
+  indexNom: Nom
+  indexDescription: Description
+  indexPrix: Prix
+  indexStock: Stock
+  indexPhoto: Photo
+  indexAfficher: Afficher
+  indexNoFoundProd: Il n'y a aucun produit
+
+  # new.html.twig
+  newTitle: Nouveau produit
+  newH1: Creer un Nouveau produit
+  newReturnList: Retour à la liste
+  
+  # show.html.twig
+  showTitle: Fiche produit
+  showH1: Fiche produit
+  showId: Id
+  showTitre: Titre
+  showDescription: Description
+  showPrix: Prix
+  showStock: Stock
+  showPhoto: Photo
+  showEuro: €
+
+  ###############################
+
+
+# registration Twig's translations
+registration:
+
+  # register.html.twig
+  registrationTitle: Inscrivez-vous
+  registrationH1: Inscription
+  registrationRegister: Inscription
+
+
+  ###############################
+
+
+# login Twig's translations
+login:
+
+  # register.html.twig
+  loginTitle: Connectez-vous
+  loginConnected: Vous êtes connecté en tant que
+  loginDeconnexion: Deconnexion
+  loginMerci: Merci de vous inscrire
+  loginEmail: Email
+  loginMdp: Mot de passe
+  loginInscription: Inscription
+
+
+  ###############################
+
+# user Twig's translations
+user:
+
+  # _delete_form.html.twig
+  alertDeleteUser: Etes vous sur de vouloir supprimer cet utilisateur ?
+  deleteUser: Delete
+
+  # _form.html.twig
+  formEnregistrer: Enregistrer
+
+ # commande.html.twig
+  commandeTitle: Historique de commande
+  commandeH1: Historique de commande
+  commandeDetail: Le détail de vos commandes
+  commandeEuro: € 
+  commandeX: X
+  commandeNbTotalProd: Nombre total de produits
+  commandeMontantTotal: Montant Total
+  commandePanierVide: Votre panier est vide
+  commandeContinuerAchat: Continuez vos achats
+
+  # edit.html.twig
+  editTitle: Modification de l'utilisateur
+  editH1: Modification de l'utilisateur
+  editReturnList: Retour à la liste
+
+  # index.html.twig
+  indextitle: Votre espace personnel
+  indexH1: Mon compte
+  indexBonjourM: Bonjour M
+  indexBienvenue: et bienvenue sur votre espace personnel
+  indexId: Id
+  indexNom: Nom
+  indexPrenom: Prenom
+  indexEmail: Email
+  indexPassword: Mot de passe
+  indexRoles: Roles
+  indexActions: Actions
+  indexNoUserFound: Pas d'utilisateur trouvé
+  indexH12: Historique de commandes
+  indexId2: Id
+  indexMontant2: Montant
+  indexDate2: Date
+  indexActions2: Actions
+  indexMontantAFaire: Montant à faire
+  indexNoCommandFound: Pas de commande trouvée
+
+  # new.html.twig
+  newTitle: Nouveau utilisateur
+  newH1: Creer un nouvel utilisateur
+  newReturnList: Retour à la liste
+  
+  # non_commande.html.twig
+  noCommandTitle: Liste des paniers non achetés
+  noCommandH1: Commande(s) non validée(s)
+  noCommandUtilisateur: Utilisateur
+  noCommandNumeroPanier: Numéro de panier
+  noCommandContenuPanier: Contenu du panier
+  noCommandNoPanierNoPaid: Pas de panier non payé
+
+  # show.html.twig
+  showTitle: User
+  showH1: User
+  showId: Id
+  showEmail: Email
+  showRoles: Roles
+  showPassword: Mot de passe
+  showNom: Nom
+  showPrenom: Prenom
+  showReturnList: Retour à la liste
+  showEdit: Modification
+
+  #user_now.html.twig
+  userTitle: Liste des paniers non achetés
+  userH1: Utilisateur(s) inscrit(s) aujourd'hui de plus récent au plus ancien
+  userId: Id
+  userNom: Nom
+  userPrenom: Prenom
+  userEmail: Email
+  userPassword: Mot de passe
+  userAucun: Aucun utilisateur inscrits aujourd'hui
+ 
+  ###############################
+
+
+base:
+  baseTitle: Bienvenue sur mon site e-commerce!
+  baseBoutique: Boutique de Eugénie
+  baseBonjour: Bonjour
+  baseProduit: Nos produit
+  baseDeconnexion: Deconnexion
+  baseInscription: Inscription
+  baseConnexion: Connexion
+
+
+nav:
+  navBonjour: Bonjour
+  navGestion: Gestion
+  navDeconnexion: Deconnexion
+  navInscription: Inscription
+  navConnexion: Connexion

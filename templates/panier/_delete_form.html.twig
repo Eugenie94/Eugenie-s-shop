@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('panier_delete', {'id': panier.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('panier_delete', {'id': panier.id}) }}" onsubmit="return confirm('"{{ 'panier.alertDeleteProdPanier'|trans }}"');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panier.id) }}">
-    <button class="btn btn-outline-danger my-2 my-sm-0">Delete<i class="fa-solid fa-trash" style="padding-left:10px;"></i></button>
+    <button class="btn btn-outline-danger my-2 my-sm-0">{{ 'panier.deleteProdPanier'|trans }}<i class="fa-solid fa-trash" style="padding-left:10px;"></i></button>
 </form>

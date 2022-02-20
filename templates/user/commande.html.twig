@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Historique de commande
-{% endblock %}
+{% block title %}{{ 'user.commandeTitle'|trans }}{% endblock %}
 
 {% block body %}
-	<h1>Historique de commande</h1>
+	<h1>{{ 'user.commandeH1'|trans }}</h1>
 
 	<div class="row">
 		<div class="col-md-8 order-md-2 mb-8">
 			{% if contenu_panier is not empty %}
 				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-muted">Le détail de votre commande</span>
+					<span class="text-muted">{{ 'user.commandeDetaiil'|trans }}</span>
 				</h4>
 				<ul class="list-group mb-3">
 					{% set total = 0 %}
@@ -23,7 +22,7 @@
 							<div>
 								<h6 class="my-0">{{ p.produit.nom }}</h6>
 								<small class="text-muted">{{ p.produit.prix }}
-									€ x
+									{{ 'user.commandeEuro'|trans }} {{ 'user.commandeX'|trans }}
 									{{ p.quantite }}</small>
 							</div>
 							<span class="text-muted">
@@ -33,18 +32,18 @@
 						</li>
 					{% endfor %}
 					<li class="list-group-item d-flex justify-content-between">
-						<span class="">Nombre total de produits : <b>{{ contenu_panier|length }}</b></span>
+						<span class="">{{ 'user.commandeNbTotalProd'|trans }} : <b>{{ contenu_panier|length }}</b></span>
 					</li>					
 					<li class="list-group-item d-flex justify-content-between" style="font-size:20px;padding-bottom:40px;padding-top:20px;">
-						<span>Montant Total: </span>
-						<span style="color:#b12704;font-weight:bold;">{{ total }} €</span>
+						<span>{{ 'user.commandeMontantTotal'|trans }} : </span>
+						<span style="color:#b12704;font-weight:bold;">{{ total }} {{ 'user.commandeEuro'|trans }}</span>
 					</li>
 				</ul>
 			</div>
 			<div class="col-md-8 order-md-1">
 			{% else %}
-				<p>Votre panier est vide</p>
-                <a href="{{ path('produit_index') }}" class="btn btn-primary">Continuez vos achats</a>
+				<p>{{ 'user.commandePanierVide'|trans }}</p>
+                <a href="{{ path('produit_index') }}" class="btn btn-primary">{{ 'user.commandeContinuerAchat'|trans }}</a>
 			{% endif %}
 		</div>
 	</div>

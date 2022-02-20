@@ -12,12 +12,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/contenu/panier')]
 class ContenuPanierController extends AbstractController
 {
     #[Route('/', name: 'contenu_panier_index', methods: ['GET'])]
-    public function index(ContenuPanierRepository $contenuPanierRepository, PanierRepository $panierRepository): Response
+    public function index(ContenuPanierRepository $contenuPanierRepository, PanierRepository $panierRepository, TranslatorInterface $t): Response
     {
         $user = $this->getUser();
         $panier = $panierRepository->findOneBy(['utilisateur' => $user, 'etat' => false]);
@@ -28,7 +29,7 @@ class ContenuPanierController extends AbstractController
     }
 
     #[Route('/new', name: 'contenu_panier_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         $contenuPanier = new ContenuPanier();
         $form = $this->createForm(ContenuPanierType::class, $contenuPanier);
@@ -48,7 +49,7 @@ class ContenuPanierController extends AbstractController
     }
 
     #[Route('/{id}', name: 'contenu_panier_show', methods: ['GET'])]
-    public function show(ContenuPanier $contenuPanier): Response
+    public function show(ContenuPanier $contenuPanier, TranslatorInterface $t): Response
     {
         return $this->render('contenu_panier/show.html.twig', [
             'contenu_panier' => $contenuPanier,
@@ -56,7 +57,7 @@ class ContenuPanierController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'contenu_panier_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ContenuPanier $contenuPanier, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, ContenuPanier $contenuPanier, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         $form = $this->createForm(ContenuPanierType::class, $contenuPanier);
         $form->handleRequest($request);
@@ -74,7 +75,7 @@ class ContenuPanierController extends AbstractController
     }
 
     #[Route('delete/{id}', name: 'contenu_panier_delete', methods: ['GET'])]
-    public function delete(Request $request, ContenuPanier $contenuPanier, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, ContenuPanier $contenuPanier, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
             $entityManager->remove($contenuPanier);
             $entityManager->flush();

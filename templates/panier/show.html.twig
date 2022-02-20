@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panier
-{% endblock %}
+{% block title %}{{ 'panier.showTitle'|trans }}{% endblock %}
 
 {% block body %}
-	<h1>Panier</h1>
+	<h1>{{ 'panier.showH1'|trans }}</h1>
 
 	<div class="row">
 		<div class="col-md-8 order-md-2 mb-8">
 			{% if contenu_panier is not empty and achat != true %}
 				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-muted">Votre panier</span>
+					<span class="text-muted">{{ 'panier.showSousTitle'|trans }}</span>
 				</h4>
 				<ul class="list-group mb-3">
 					{% set total = 0 %}
@@ -22,33 +21,33 @@
 							<div>
 								<h6 class="my-0">{{ p.produit.nom }}</h6>
 								<small class="text-muted">{{ p.produit.prix }}
-									€ x
+									{{ 'panier.showEuro'|trans }} x
 									{{ p.quantite }}</small>
 							</div>
 							<span class="text-muted">
 								{{ totalProduit}}
-								€
+								{{ 'panier.showEuro'|trans }}
 							</span>
 							<a href="{{ path('contenu_panier_delete', {'id': p.id}) }}" style="color:red"><i class="fa-solid fa-trash"></i></a>
 						</li>
 					{% endfor %}
 					<li class="list-group-item d-flex justify-content-between">
-						<span class="">Nombre total de produits : <b>{{ contenu_panier|length }}</b></span>
+						<span class="">{{ 'panier.showNbTotalProd'|trans }} : <b>{{ contenu_panier|length }}</b></span>
 					</li>					
 					<li class="list-group-item d-flex justify-content-between" style="font-size:20px;padding-bottom:40px;padding-top:20px;">
-						<span>Montant Total: </span>
-						<span style="color:#b12704;font-weight:bold;">{{ total }} €</span>
+						<span>{{ 'panier.showMontantTotal'|trans }} : </span>
+						<span style="color:#b12704;font-weight:bold;">{{ total }} {{ 'panier.showEuro'|trans }}</span>
 					</li>
 				</ul>
 				<form class="needs-validation" method="POST">
 					<hr class="mb-4">
-					<button class="btn btn-warning btn-lg btn-block" type="submit">Payez</button>
+					<button class="btn btn-warning btn-lg btn-block" type="submit">{{ 'panier.showPayez'|trans }}</button>
 			</form>
 			</div>
 			<div class="col-md-8 order-md-1">
 			{% else %}
-				<p>Votre panier est vide</p>
-                <a href="{{ path('produit_index') }}" class="btn btn-primary">Continuez vos achats</a>
+				<p>{{ 'panier.showVoidPanier'|trans }}</p>
+                <a href="{{ path('produit_index') }}" class="btn btn-primary">{{ 'panier.showContinueAchat'|trans }}</a>
 			{% endif %}
 		</div>
 	</div>

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau panier{% endblock %}
+{% block title %}{{ 'panier.newTitle'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Création d'un nouveau panier</h1>
+    <h1>{{ 'panier.newH1'|trans }}</h1>
 
     {{ include('panier/_form.html.twig') }}
 
-    <a href="{{ path('panier_index') }}">back to list</a>
+    <a href="{{ path('panier_index') }}">{{ 'panier.newReturnList'|trans }}</a>
 {% endblock %}

@@ -13,13 +13,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
     // Permet de récupérer les commandes de l'utilisateur ainsi que son profil
     #[Route('/profil', name: 'user_index')]
-    public function index(UserRepository $userRepository, PanierRepository $panierRepository): Response
+    public function index(UserRepository $userRepository, PanierRepository $panierRepository, TranslatorInterface $t): Response
     {
         $user = $this->getUser();
         $commandes = $panierRepository->findBy(['utilisateur' => $user, 'etat' => true]);
@@ -30,7 +31,7 @@ class UserController extends AbstractController
 
     // Permet de récupérer les commandes qui n'ont pas été payé par tous les utilisateurs
     #[Route('/non_commande', name: 'non_commande', methods: ['GET', 'POST'])]
-    public function nonCommande(Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository, EntityManagerInterface $entityManager): Response
+    public function nonCommande(Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         // Récuperation du panier
         $panier = $panierRepository->findBy(['etat' => false]);
@@ -57,9 +58,9 @@ class UserController extends AbstractController
 
     // Permet de récupérer les utilisateurs inscrit aujourd'hui du plus récent au plus ancien
     #[Route('/user_now', name: 'user_now')]
-    public function userNow(UserRepository $userRepository, PanierRepository $panierRepository): Response
+    public function userNow(UserRepository $userRepository, PanierRepository $panierRepository, TranslatorInterface $t): Response
     {
-        $user = $userRepository->findBy(array(),array('id' => 'DESC'));
+        $user = $userRepository->findBy(array('dateCreation' => new \DateTime(date('Y-m-d'))),array('id' => 'DESC'));
         return $this->render('user/user_now.html.twig', [
             'user' => $user,
         ]);
@@ -67,7 +68,7 @@ class UserController extends AbstractController
 
     // Permet de s'inscrire sur le site
     #[Route('/new', name: 'user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -97,7 +98,7 @@ class UserController extends AbstractController
 
     // Permet d'éditer le profil de l'utilisateur
     #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -116,7 +117,7 @@ class UserController extends AbstractController
 
     // Permet de supprimer un utilisateur
     #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
@@ -128,7 +129,7 @@ class UserController extends AbstractController
 
     // Permet de récupérer les commandes qui ont été payées par l'utilisateur
     #[Route('/commande/{id}', name: 'user_commande', methods: ['GET', 'POST'])]
-    public function userCommande(Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository, EntityManagerInterface $entityManager): Response
+    public function userCommande(Request $request, PanierRepository $panierRepository, ContenuPanierRepository $contenuPanierRepository, EntityManagerInterface $entityManager, TranslatorInterface $t): Response
     {
         // Id de la commande dans la route
         $idCommande = $request->attributes->get('id');

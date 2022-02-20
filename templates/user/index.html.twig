@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre espace personnel{% endblock %}
+{% block title %}{{ 'user.indexTitle'|trans }}{% endblock %}
 
 
 {% block body %}
-    <h1 style="padding-bottom:30px;">Mon compte</h1>
+    <h1 style="padding-bottom:30px;">{{ 'user.indexH1'|trans }}{</h1>
 
-    <div style="font-size:20px;font-weight:bold;padding-bottom:20px;color:blue;">Bonjour M. {{ app.user.nom }} {{ app.user.prenom }} et bienvenue sur votre espace personnel </div>
+    <div style="font-size:20px;font-weight:bold;padding-bottom:20px;color:blue;">{{ 'user.indexBonjourM'|trans }}{ {{ app.user.nom }} {{ app.user.prenom }} {{ 'user.indexBienvenue'|trans }} </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Roles</th>
-                <th>actions</th>
+                <th>{{ 'user.indexId'|trans }}</th>
+                <th>{{ 'user.indexNom'|trans }}</th>
+                <th>{{ 'user.indexPrenom'|trans }}</th>
+                <th>{{ 'user.indexEmail'|trans }}</th>
+                <th>{{ 'user.indexPassword'|trans }}</th>
+                <th>{{ 'user.indexRoles'|trans }}</th>
+                <th>{{ 'user.indexActions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">{{ 'user.indexNoUserFound'|trans }}</td>
             </tr>
         {% endif %}
         </tbody>
@@ -44,22 +44,22 @@
 
 
 
-    <h1 style="padding-bottom:30px;padding-top:30px;">Historique de commandes</h1>
+    <h1 style="padding-bottom:30px;padding-top:30px;">{{ 'user.indexH12'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Montant</th>
-                <th>Date</th>
-                <th>Actions</th>
+                <th>{{ 'user.indexId2'|trans }}</th>
+                <th>{{ 'user.indexMontant2'|trans }}</th>
+                <th>{{ 'user.indexDate2'|trans }}</th>
+                <th>{{ 'user.indexActions2'|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for c in commandes %}
             <tr>
                 <td>{{ c.id }}</td>
-                <td>montant a faire</td>
+                <td>{{ 'user.indexMontantAFaire'|trans }}</td>
                 <td>{{ c.dateAchat|date('d/m/Y h:i:s') }}</td>
                 <td>
                     <a href="{{ path('user_commande', {'id': c.id}) }}"><i class="fa-solid fa-eye"></i></a>
@@ -67,7 +67,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">{{ 'user.indexNoCommandFound'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des produits{% endblock %}
+{% block title %}{{ 'produit.indexTitle'|trans }}{% endblock %}
 
 {% block body %}
     <h1>{{ 'Liste des produits' }}</h1>
@@ -9,11 +9,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Photo</th>
+                <th>{{ 'produit.indexNom'|trans }}</th>
+                <th>{{ 'produit.indexDescription'|trans }}</th>
+                <th>{{ 'produit.indexPrix'|trans }}</th>
+                <th>{{ 'produit.indexStock'|trans }}</th>
+                <th>{{ 'produit.indexPhoto'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('produit_show', {'id':p.id}) }}">Afficher</a>
+                        <a href="{{ path('produit_show', {'id':p.id}) }}">{{ 'produit.indexAfficher'|trans }}</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -37,7 +37,7 @@
     </table>
 
     {% else %}
-        <p>Il n'y a aucun produit</p>
+        <p>{{ 'produit.indexNoFoundProd'|trans }}</p>
     {% endif %}
 
 {% endblock %}

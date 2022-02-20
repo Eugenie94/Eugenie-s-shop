@@ -5,16 +5,16 @@
 
 {% block body %}
 
-    <h1 style="padding-bottom:30px;padding-top:50px;">Utilisateur(s) inscrit(s) aujourd'hui de plus récent au plus ancien</h1>
+    <h1 style="padding-bottom:30px;padding-top:50px;">{{ 'user.userTitle'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Mot de passe</th>
+                <th>{{ 'user.userId'|trans }}</th>
+                <th>{{ 'user.userNom'|trans }}</th>
+                <th>{{ 'user.userPrenom'|trans }}</th>
+                <th>{{ 'user.userEmail'|trans }}</th>
+                <th>{{ 'user.userPassword'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">{{ 'user.userAucun'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

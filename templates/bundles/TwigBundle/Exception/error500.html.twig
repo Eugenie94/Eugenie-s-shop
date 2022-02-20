@@ -2,10 +2,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Erreur Serveur</h1>
 
-    <p>
-        The requested page couldn't be located. Checkout for any URL
-        misspelling or <a href="{{ path('homepage') }}">return to the homepage</a>.
-    </p>
+    <h1>{{ 'error.errorServerTitle'|trans }}</h1>
+
+    <p>{{ 'errorServerConten'|trans }}</p>
+
 {% endblock %}

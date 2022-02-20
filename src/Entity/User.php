@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->paniers = new ArrayCollection();
-        $this->dateCreation = new \DateTime();
+        $this->dateCreation = new \DateTime(date('Y-m-d'));
     }
 
     public function getId(): ?int

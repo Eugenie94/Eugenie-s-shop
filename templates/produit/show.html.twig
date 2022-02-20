@@ -1,34 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fiche produit | {{ produit.nom }}{% endblock %}
+{% block title %}{{ 'produit.showTitle'|trans }} | {{ produit.nom }}{% endblock %}
 
 {% block body %}
-    <h1>Fiche produit</h1>
+    <h1>{{ 'produit.showH1'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'produit.showId'|trans }}</th>
                 <td>{{ produit.id }}</td>
             </tr>
             <tr>
-                <th>Titre</th>
+                <th>{{ 'produit.showTitre'|trans }}</th>
                 <td>{{ produit.nom }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{ 'produit.showDescription'|trans }}</th>
                 <td>{{ produit.description }}</td>
             </tr>
             <tr>
-                <th>Prix</th>
+                <th>{{ 'produit.showPrix'|trans }}</th>
                 <td>{{ produit.prix }}</td>
             </tr>
              <tr>
-                <th>Stock</th>
+                <th>{{ 'produit.showStock'|trans }}</th>
                 <td>{{ produit.stock }}</td>
             </tr>
              <tr>
-                <th>Photo</th>
+                <th>{{ 'produit.showPhoto'|trans }}</th>
                 <td>
                 {% if produit.photo is not null %}
                     <img src="{{ asset('/uploads/' ~ produit.photo ) }}" alt="" style="width:100px">

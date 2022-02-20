@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste Panier{% endblock %}
+{% block title %}{{ 'panier.indextitle'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Liste Panier</h1>
+    <h1>{{ 'panier.indexH1'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Utilisateur</th>
-                <th>Date d'achat</th>
-                <th>Etat</th>
+                <th>{{ 'panier.indexId'|trans }}</th>
+                <th>{{ 'panier.indexUtilisateur'|trans }}</th>
+                <th>{{ 'panier.indexDate'|trans }}</th>
+                <th>{{ 'panier.indexEtat'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -21,17 +21,17 @@
                 <td>{{ panier.utilisateur ? panier.dateAchat|date('Y-m-d H:i:s') : ''}}</td>
                 <td>{{ panier.etat ? '<i class="fa-solid fa-check" style="color:green;"></i>' : '<i class="fa-solid fa-xmark" style="color:red;"></i>' }}</td>
                 <td>
-                    <a href="{{ path('contenu_panier_index', {'id': panier.contenuPanier.id}) }}">show</a>
-                    <a href="{{ path('home', {'id': panier.id}) }}">edit</a>
+                    <a href="{{ path('contenu_panier_index', {'id': panier.contenuPanier.id}) }}">{{ 'panier.indexVoir'|trans }}</a>
+                    <a href="{{ path('home', {'id': panier.id}) }}">{{ 'panier.indexModifier'|trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">Pas d'article trouvé</td>
+                <td colspan="4">{{ 'panier.indexNoFoundProd'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('panier_new') }}">Créer un nouveau panier</a>
+    <a href="{{ path('panier_new') }}">{{ 'panier.indexCreateNewPanier'|trans }}</a>
 {% endblock %}

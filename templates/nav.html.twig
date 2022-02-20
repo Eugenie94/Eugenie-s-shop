@@ -17,7 +17,7 @@
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
                     <a class="nav-link bonjour" href="#">
-                        Bonjour {{ app.user.nom }} {{ app.user.prenom }}
+                        {{ 'nav.navBonjour'|trans }} {{ app.user.nom }} {{ app.user.prenom }}
                     </a>
 
                     <a class="nav-link profil" href="{{ path('user_profil') }}">
@@ -25,17 +25,17 @@
                     </a>
 
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
-                        <a class="nav-link button ajouter lien-responsive" href="{{ path('') }}">Gestion</a>
+                        <a class="nav-link button ajouter lien-responsive" href="{{ path('') }}">{{ 'nav.navGestion'|trans }}</a>
                     {% endif %}
 
-                    <a class="nav-link button deconnexion lien-responsive" href="{{ path('app_logout') }}">Déconnexion</a>
+                    <a class="nav-link button deconnexion lien-responsive" href="{{ path('app_logout') }}">{{ 'nav.navDeconnexion'|trans }}</a>
                     {% else %}
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-3 lien-responsive">
-                            <a class="nav-link button register" href="{{ path('app_register') }}">Inscription</a>
+                            <a class="nav-link button register" href="{{ path('app_register') }}">{{ 'nav.navInscription'|trans }}</a>
                         </div>
                         <div class="col-md-3 lien-responsive">
-                            <a class="nav-link button login" href="{{ path('app_login') }}">Connexion</a>
+                            <a class="nav-link button login" href="{{ path('app_login') }}">{{ 'nav.navConnexion'|trans }}</a>
                         </div>
                         {% endif %}
                     </div>

@@ -1,42 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ContenuPanier{% endblock %}
+{% block title %}{{ 'contenuPanier.showTitle'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>ContenuPanier</h1>
+    <h1>{{ 'contenuPanier.newH1'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'contenuPanier.showId'|trans }}</th>
                 <td>{{ contenu_panier.id }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
+                <th>{{ 'contenuPanier.showNom'|trans }}/th>
                 <td>{{ contenu_panier.produit.nom }}</td>
             </tr>
             <tr>
-                <th>Quantite</th>
+                <th>{{ 'contenuPanier.showQuantite'|trans }}</th>
                 <td>{{ contenu_panier.quantite }}</td>
             </tr>
             <tr>
-                <th>Prix</th>
-                <td>{{ contenu_panier.produit.prix }} €</td>
+                <th>{{ 'contenuPanier.showPrix'|trans }}</th>
+                <td>{{ contenu_panier.produit.prix }} {{ 'contenuPanier.showEuro'|trans }}</td>
             </tr>
             <tr>
-                <th>Montant</th>
-                <td>{{ contenu_panier.getMontant}} €</td>
+                <th>{{ 'contenuPanier.showMontant'|trans }}</th>
+                <td>{{ contenu_panier.getMontant}} {{ 'contenuPanier.showEuro'|trans }}</td>
             </tr>
             <tr>
-                <th>Date</th>
+                <th>{{ 'contenuPanier.showDate'|trans }}</th>
                 <td>{{ contenu_panier.date ? contenu_panier.date|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('contenu_panier_index') }}">back to list</a>
+    <a href="{{ path('contenu_panier_index') }}">{{ 'contenuPanier.showReturnList'|trans }}</a>
 
-    <a href="{{ path('contenu_panier_edit', {'id': contenu_panier.id}) }}">edit</a>
+    <a href="{{ path('contenu_panier_edit', {'id': contenu_panier.id}) }}">{{ 'contenuPanier.showEdit'|trans }}</a>
 
     {{ include('contenu_panier/_delete_form.html.twig') }}
 {% endblock %}
